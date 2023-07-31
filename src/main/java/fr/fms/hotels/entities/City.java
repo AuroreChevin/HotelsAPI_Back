@@ -15,7 +15,7 @@ public class City {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String nameCity;
+    private String cityName;
     private String description;
     @OneToMany(fetch = FetchType.EAGER)
     @JsonIgnore

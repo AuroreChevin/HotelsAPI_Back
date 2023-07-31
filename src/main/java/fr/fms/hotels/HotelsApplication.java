@@ -8,6 +8,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.util.ArrayList;
+
 @SpringBootApplication
 public class HotelsApplication implements CommandLineRunner {
 	@Autowired
@@ -48,4 +50,28 @@ public class HotelsApplication implements CommandLineRunner {
 		hotelServiceImpl.saveHotel(new Hotel(null, "Hôtel l'Arbre Voyageur", "45 Bd Carnot, 59800 Lille", "03 20 20 62 62", 30, 4, 107, "unknown.png", lille));
 		hotelServiceImpl.saveHotel(new Hotel(null, "Le Napoléon", "17 Pl. de la Gare, 59800 Lille", "03 20 42 19 69", 16, 3, 34, "unknown.png", lille));
 	}
+	/*private void generateUsersRoles() {
+		accountService.saveUser(new AppUser(null,"mohamed","1234",new ArrayList<>()));
+		accountService.saveUser(new AppUser(null,"rory","1234",new ArrayList<>()));
+		accountService.saveUser(new AppUser(null,"raph","1234",new ArrayList<>()));
+		accountService.saveUser(new AppUser(null,"guigui","1234",new ArrayList<>()));
+		accountService.saveUser(new AppUser(null,"ayyoub","1234",new ArrayList<>()));
+		accountService.saveUser(new AppUser(null,"benoit","1234",new ArrayList<>()));
+		accountService.saveUser(new AppUser(null,"alex","1234",new ArrayList<>()));
+		accountService.saveRole(new AppRole(null,"ADMIN"));
+		accountService.saveRole(new AppRole(null,"MANAGER"));
+		accountService.saveRole(new AppRole(null,"USER"));
+		accountService.addRoleToUser("mohamed","ADMIN");
+		accountService.addRoleToUser("mohamed","USER");
+		accountService.addRoleToUser("rory","MANAGER");
+		accountService.addRoleToUser("rory","USER");
+		accountService.addRoleToUser("raph","MANAGER");
+		accountService.addRoleToUser("raph","USER");
+		accountService.addRoleToUser("ayyoub","MANAGER");
+		accountService.addRoleToUser("ayyoub","USER");
+		accountService.addRoleToUser("guigui","MANAGER");
+		accountService.addRoleToUser("guigui","USER");
+		accountService.addRoleToUser("benoit","USER");
+		accountService.addRoleToUser("alex","USER");
+	}*/
 }

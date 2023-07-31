@@ -13,7 +13,7 @@ import java.io.Serializable;
 public class Hotel implements Serializable {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String nameHotel;
+    private String hotelName;
     private String address;
     private String phone;
     private int nbRoom;

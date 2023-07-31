@@ -3,8 +3,14 @@ package fr.fms.hotels.service;
 import fr.fms.hotels.entities.City;
 import fr.fms.hotels.entities.Hotel;
 
-public interface HotelService {
-    public City saveCity(City city);
+import java.util.List;
 
-    public Hotel saveHotel(Hotel hotel);
+public interface HotelService {
+    City saveCity(City city);
+
+    Hotel saveHotel(Hotel hotel);
+
+    List<Hotel> getAllHotels();
+
+    List<City> getAllCities();
 }
