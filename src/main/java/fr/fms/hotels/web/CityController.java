@@ -40,11 +40,11 @@ public class CityController {
         return null;
     }
     /**
-     * Methode permettant de récupérer une ville
+     * Methode en GET permettant de récupérer une ville
      * @param id de la ville
      * @return la ville
      */
-    @GetMapping("/city/{id}")
+    @GetMapping("/cities/{id}")
     public City getCityById(@PathVariable("id")Long id) {
         return hotelServiceImpl.readCityById(id).orElseThrow(() -> new RecordNotFoundException("Id de la ville " +id+ " n'existe pas"));
     }

@@ -60,7 +60,7 @@ public class HotelController {
     }
 
     /**
-     * Méthode permettant changer la photo d'un hôtel via son id
+     * Méthode  en POST permettant de changer la photo d'un hôtel via son id
      * @param file photo à upload
      * @param id de l'hôtel
      * @return Response entity
@@ -81,11 +81,11 @@ public class HotelController {
     }
 
     /**
-     * Methode permettant de récupérer un hôtel
+     * Methode en GET permettant de récupérer un hôtel
      * @param id de l'hôtel
      * @return l'hôtel
      */
-    @GetMapping("/hotel/{id}")
+    @GetMapping("/hotels/{id}")
     public Hotel getHotelById(@PathVariable("id")Long id) {
         return hotelServiceImpl.readHotelById(id).orElseThrow(() -> new RecordNotFoundException("Id de l'hôtel " +id+ " n'existe pas"));
     }
