@@ -16,6 +16,10 @@ import java.util.List;
 public class CityController {
     @Autowired
     HotelServiceImpl hotelServiceImpl;
+    /**
+     * Méthode en GET permettant d'afficher la liste des villes
+     * @return la liste des villes
+     */
     @GetMapping("/cities")
     public List<City> allCities(){return hotelServiceImpl.getAllCities();}
 }

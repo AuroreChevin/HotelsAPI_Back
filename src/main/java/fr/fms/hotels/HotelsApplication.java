@@ -12,17 +12,17 @@ import java.util.ArrayList;
 
 @SpringBootApplication
 public class HotelsApplication implements CommandLineRunner {
-	@Autowired
-	HotelServiceImpl hotelServiceImpl;
+	/*@Autowired
+	HotelServiceImpl hotelServiceImpl;*/
 	public static void main(String[] args) {
 		SpringApplication.run(HotelsApplication.class, args);
 	}
 
 	@Override
 	public void run(String... args) throws Exception {
-		generateDataHotel();
+		//generateDataHotel();
 	}
-	private void generateDataHotel() {
+	/*private void generateDataHotel() {
 		City toulouse = hotelServiceImpl.saveCity(new City(null, "Toulouse", "Ville rose", null));
 		City nice = hotelServiceImpl.saveCity(new City(null, "Nice", "Ville au bord de la méditerranée", null));
 		City saintAmand = hotelServiceImpl.saveCity(new City(null, "Saint Amand Les Eaux", "Ville thermale", null));
@@ -49,7 +49,7 @@ public class HotelsApplication implements CommandLineRunner {
 		hotelServiceImpl.saveHotel(new Hotel(null, "OKKO ", "13 Rue d'Amiens, 59800 Lille", "03 20 48 19 40", 32, 4, 90, "unknown.png", lille));
 		hotelServiceImpl.saveHotel(new Hotel(null, "Hôtel l'Arbre Voyageur", "45 Bd Carnot, 59800 Lille", "03 20 20 62 62", 30, 4, 107, "unknown.png", lille));
 		hotelServiceImpl.saveHotel(new Hotel(null, "Le Napoléon", "17 Pl. de la Gare, 59800 Lille", "03 20 42 19 69", 16, 3, 34, "unknown.png", lille));
-	}
+	}*/
 	/*private void generateUsersRoles() {
 		accountService.saveUser(new AppUser(null,"mohamed","1234",new ArrayList<>()));
 		accountService.saveUser(new AppUser(null,"rory","1234",new ArrayList<>()));

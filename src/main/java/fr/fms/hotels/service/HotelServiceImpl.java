@@ -39,5 +39,10 @@ public class HotelServiceImpl implements HotelService{
         return cityRepository.findAllByOrderByCityNameAsc();
     }
 
+    @Override
+    public List<Hotel> getHotelsByCityId(Long id) {
+        return hotelRepository.findByCityId(id);
+    }
+
 
 }
