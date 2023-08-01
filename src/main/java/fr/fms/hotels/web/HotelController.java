@@ -1,9 +1,12 @@
 package fr.fms.hotels.web;
 
+import fr.fms.hotels.entities.City;
 import fr.fms.hotels.entities.Hotel;
+import fr.fms.hotels.exception.RecordNotFoundException;
 import fr.fms.hotels.service.HotelServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +16,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Optional;
 
 @CrossOrigin("*")
 @RestController
@@ -39,7 +43,7 @@ public class HotelController {
     /**
      * Méthode en GET permettant d'afficher la photo des hôtels par id
      * @param id de l'hôtel
-     * @return un status ok
+     * @return response entity
      */
     @GetMapping(path = "/photo/{id}", produces = MediaType.IMAGE_PNG_VALUE)
     public ResponseEntity<?> getPhotos(@PathVariable("id") Long id) throws IOException {
@@ -54,6 +58,13 @@ public class HotelController {
         }
         return ResponseEntity.ok().body(file);
     }
+
+    /**
+     * Méthode permettant changer la photo d'un hôtel via son id
+     * @param file photo à upload
+     * @param id de l'hôtel
+     * @return Response entity
+     */
     @PostMapping(path="/photo/{id}")
     public ResponseEntity<?> uploadPhoto(MultipartFile file, @PathVariable("id")Long id) throws IOException{
         try {
@@ -67,6 +78,16 @@ public class HotelController {
         }
         log.info("file upload ok {}",id);
         return ResponseEntity.ok().build();
+    }
+
+    /**
+     * Methode permettant de récupérer un hôtel
+     * @param id de l'hôtel
+     * @return
+     */
+    @GetMapping("/hotel/{id}")
+    public Hotel getHotelById(@PathVariable("id")Long id) {
+        return hotelServiceImpl.readHotelById(id).orElseThrow(() -> new RecordNotFoundException("Id de l'hôtel " +id+ " n'existe pas"));
     }
 
 }

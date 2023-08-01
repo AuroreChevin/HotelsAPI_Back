@@ -1,5 +1,6 @@
 package fr.fms.hotels.dao;
 
+import fr.fms.hotels.entities.City;
 import fr.fms.hotels.entities.Hotel;
 import org.springframework.data.jpa.repository.JpaRepository;
 

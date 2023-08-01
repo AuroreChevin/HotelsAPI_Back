@@ -47,9 +47,11 @@ public class HotelServiceImpl implements HotelService{
 
     @Override
     public Optional<Hotel> readHotelById(Long id) {
-        Optional<Hotel> optional = hotelRepository.findById(id);
-        if(optional.isPresent()) {return optional;}
-        return null;
+        return hotelRepository.findById(id);
+    }
+    @Override
+    public List<City> getCitiesByKeyword(String keyword) {
+        return cityRepository.findByCityNameContains(keyword);
     }
 
 

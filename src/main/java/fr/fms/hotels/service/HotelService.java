@@ -36,6 +36,16 @@ public interface HotelService {
      * @return une liste d'hôtels par ville choisie
      */
     List<Hotel> getHotelsByCityId(Long id);
-
+    /**
+     * Méthode permettant de récupérer un hôtel par son id
+     * @param id de l'hôtel sélectionné
+     * @return un hôtel
+     */
     Optional<Hotel> readHotelById(Long id);
+    /**
+     * Méthode permettant de récupérer une liste de villes par mot clé
+     * @param keyword
+     * @return une liste de ville
+     */
+    List<City> getCitiesByKeyword(String keyword);
 }
