@@ -4,11 +4,14 @@ import fr.fms.hotels.entities.Hotel;
 import fr.fms.hotels.service.HotelServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 
 @CrossOrigin("*")
@@ -31,6 +34,39 @@ public class HotelController {
     @GetMapping("/hotels/cities/{id}")
     public List<Hotel> allHotelsByCityId(@PathVariable("id")Long id){
         return hotelServiceImpl.getHotelsByCityId(id);
+    }
+
+    /**
+     * Méthode en GET permettant d'afficher la photo des hôtels par id
+     * @param id de l'hôtel
+     * @return un status ok
+     */
+    @GetMapping(path = "/photo/{id}", produces = MediaType.IMAGE_PNG_VALUE)
+    public ResponseEntity<?> getPhotos(@PathVariable("id") Long id) throws IOException {
+        byte[] file =null;
+        try {
+            Hotel hotel = hotelServiceImpl.readHotelById(id).get();
+            if (hotel.getPhoto()==null)hotel.setPhoto("unknown.png");
+            file = Files.readAllBytes(Paths.get(System.getProperty("user.home")+"/hotels/images/"+hotel.getPhoto()));
+        }catch (Exception e){
+            log.error("problème lors du download de l'image correspondant à l'hôtel d'id : {}", id);
+            return ResponseEntity.internalServerError().body(e.getCause());
+        }
+        return ResponseEntity.ok().body(file);
+    }
+    @PostMapping(path="/photo/{id}")
+    public ResponseEntity<?> uploadPhoto(MultipartFile file, @PathVariable("id")Long id) throws IOException{
+        try {
+            Hotel hotel = hotelServiceImpl.readHotelById(id).get();
+            hotel.setPhoto(file.getOriginalFilename());
+            Files.write(Paths.get(System.getProperty("user.home")+"/hotels/images/"+hotel.getPhoto()),file.getBytes());
+            hotelServiceImpl.saveHotel(hotel);
+        }catch (Exception e){
+            log.error("problème lors de l'upload de l'image correspondant à l'hôtel d'id : {}", id);
+            return ResponseEntity.internalServerError().body(e.getCause());
+        }
+        log.info("file upload ok {}",id);
+        return ResponseEntity.ok().build();
     }
 
 }

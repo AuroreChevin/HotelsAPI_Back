@@ -4,6 +4,7 @@ import fr.fms.hotels.entities.City;
 import fr.fms.hotels.entities.Hotel;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface HotelService {
     /**
@@ -35,4 +36,6 @@ public interface HotelService {
      * @return une liste d'hôtels par ville choisie
      */
     List<Hotel> getHotelsByCityId(Long id);
+
+    Optional<Hotel> readHotelById(Long id);
 }

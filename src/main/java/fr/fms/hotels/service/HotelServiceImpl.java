@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -42,6 +43,13 @@ public class HotelServiceImpl implements HotelService{
     @Override
     public List<Hotel> getHotelsByCityId(Long id) {
         return hotelRepository.findByCityId(id);
+    }
+
+    @Override
+    public Optional<Hotel> readHotelById(Long id) {
+        Optional<Hotel> optional = hotelRepository.findById(id);
+        if(optional.isPresent()) {return optional;}
+        return null;
     }
 
 

@@ -21,5 +21,6 @@ public class Hotel implements Serializable {
     private double priceRoom;
     private String photo;
     @ManyToOne
-    City city;
+    @ToString.Exclude
+    private City city;
 }
