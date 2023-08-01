@@ -48,4 +48,10 @@ public interface HotelService {
      * @return une liste de ville
      */
     List<City> getCitiesByKeyword(String keyword);
+    /**
+     * Méthode permettant de récupérer une ville par son id
+     * @param id de la ville sélectionnée
+     * @return une ville
+     */
+    Optional<City> readCityById(Long id);
 }

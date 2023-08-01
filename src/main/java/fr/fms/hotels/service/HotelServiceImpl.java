@@ -23,13 +23,11 @@ public class HotelServiceImpl implements HotelService{
         log.info("Sauvegarde d'une nouvelle ville {} en base",city);
         return cityRepository.save(city);
     }
-
     @Override
     public Hotel saveHotel(Hotel hotel) {
         log.info("Sauvegarde d'un nouvel hotel {} en base",hotel);
         return hotelRepository.save(hotel);
     }
-
     @Override
     public List<Hotel> getAllHotels() {
         return hotelRepository.findAllByOrderByHotelNameAsc();
@@ -53,6 +51,11 @@ public class HotelServiceImpl implements HotelService{
     public List<City> getCitiesByKeyword(String keyword) {
         return cityRepository.findByCityNameContains(keyword);
     }
+    @Override
+    public Optional<City> readCityById(Long id) {
+        return cityRepository.findById(id);
+    }
+
 
 
 }

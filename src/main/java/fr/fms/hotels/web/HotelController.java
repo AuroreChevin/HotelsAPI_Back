@@ -83,7 +83,7 @@ public class HotelController {
     /**
      * Methode permettant de récupérer un hôtel
      * @param id de l'hôtel
-     * @return
+     * @return l'hôtel
      */
     @GetMapping("/hotel/{id}")
     public Hotel getHotelById(@PathVariable("id")Long id) {
