@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 @Service @Transactional
 @Slf4j
@@ -46,6 +47,7 @@ public class AccountServiceImpl implements AccountService{
         user.getRoles().add(role);
         log.info("association d'un rôle à un utilisateur");
     }
+
     @Override
     public AppUser findUserByUsername(String username) {   return appUserRepository.findByUsername(username);   }
 
@@ -58,5 +60,16 @@ public class AccountServiceImpl implements AccountService{
     public List<AppUser> getUsersByRolename(String roles) {
         return appUserRepository.findByRolesRolename(roles);
     }
+
+    @Override
+    public void deleteUser(Long id) {
+        appUserRepository.deleteById(id);
+    }
+
+    @Override
+    public Optional<AppUser> readUserById(Long id) {
+        return appUserRepository.findById(id);
+    }
+
 
 }

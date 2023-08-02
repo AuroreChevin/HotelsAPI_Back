@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 public interface AccountService {
     /**
@@ -36,5 +37,11 @@ public interface AccountService {
 
     ResponseEntity<List<AppUser>> listUsers();
     public List<AppUser> getUsersByRolename(String roles);
+    /**
+     * Méthode permettant la suppression d'un user
+     * @param id du user
+     */
+    void deleteUser(Long id);
 
+    Optional<AppUser> readUserById(Long id);
 }
