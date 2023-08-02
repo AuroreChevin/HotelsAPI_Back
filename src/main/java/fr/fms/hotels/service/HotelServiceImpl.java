@@ -61,6 +61,10 @@ public class HotelServiceImpl implements HotelService{
         return hotelRepository.findByCityCityNameContains(keyword);
     }
 
+    @Override
+    public void deleteHotel(Long id) {
+        hotelRepository.deleteById(id);
+    }
 
 
 }

@@ -9,14 +9,14 @@ import java.util.Optional;
 public interface HotelService {
     /**
      * Méthode permettant de sauvegarder une nouvelle ville
-     * @param city
+     * @param city une ville
      */
     City saveCity(City city);
 
     /**
      * Méthode permettant de sauvegarder un nouvel hôtel
-     * @param hotel
-     * @return
+     * @param hotel un hotel
+     *
      */
     Hotel saveHotel(Hotel hotel);
     /**
@@ -44,7 +44,7 @@ public interface HotelService {
     Optional<Hotel> readHotelById(Long id);
     /**
      * Méthode permettant de récupérer une liste de villes par mot clé
-     * @param keyword
+     * @param keyword mot clé contenu dans ville
      * @return une liste de ville
      */
     List<City> getCitiesByKeyword(String keyword);
@@ -54,5 +54,17 @@ public interface HotelService {
      * @return une ville
      */
     Optional<City> readCityById(Long id);
-    public  List<Hotel> getHotelByCityKeyword(String keyword);
+
+    /**
+     * Méthode permettant de récupérer une liste d'hôtel par mot clé contenu dans le nom de la ville
+     * @param keyword mot clé contenu dans ville
+     * @return liste d'hôtels dont le nom de la ville contient le keyword
+     */
+    List<Hotel> getHotelByCityKeyword(String keyword);
+
+    /**
+     * Méthode permettant la suppression d'un hôtel
+     * @param id de l'hôtel
+     */
+    void deleteHotel(Long id);
 }

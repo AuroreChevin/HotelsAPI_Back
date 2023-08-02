@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
 import java.util.List;
 
 @CrossOrigin("*")
@@ -26,8 +25,8 @@ public class AccountRestController {
 
     /**
      * Méthode en Post permettant de sauvegarder un nouvel utilisateur
-     * @param user
-     * @return
+     * @param user un objet User
+     * @return user sauvegardé en base
      */
     @PostMapping("/users")
     public AppUser postUser(@RequestBody AppUser user) { return this.accountService.saveUser(user); }

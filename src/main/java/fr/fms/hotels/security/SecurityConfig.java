@@ -59,14 +59,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers(HttpMethod.GET,"/photo/**").permitAll();
         http.authorizeRequests().antMatchers(HttpMethod.POST,"/photo/**").hasAuthority("MANAGER");
         http.authorizeRequests().antMatchers(HttpMethod.POST,"/photo/**").hasAuthority("ADMIN");
-        http.authorizeRequests().antMatchers(HttpMethod.DELETE,"/hotels/**","/cit/**").hasAuthority("ADMIN");
-        http.authorizeRequests().antMatchers(HttpMethod.POST,"/hotels/**","/cit/**").hasAuthority("ADMIN");
-        http.authorizeRequests().antMatchers(HttpMethod.POST,"/hotels/**").hasAuthority("MANAGER");
+        http.authorizeRequests().antMatchers(HttpMethod.DELETE,"/hotels/**","/cities/**").hasAuthority("ADMIN");
+        http.authorizeRequests().antMatchers(HttpMethod.POST,"/hotels/**","/cities/**").hasAuthority("ADMIN");
+        http.authorizeRequests().antMatchers(HttpMethod.PUT,"/hotels/**","/cities/**").hasAnyAuthority("ADMIN","MANAGER");
         http.authorizeRequests().antMatchers(HttpMethod.POST,"/users").hasAuthority("ADMIN");
         http.authorizeRequests().antMatchers(HttpMethod.GET,"/users").hasAuthority("ADMIN");
         http.authorizeRequests().antMatchers(HttpMethod.POST,"/role").hasAuthority("ADMIN");
         http.authorizeRequests().antMatchers(HttpMethod.GET,"/roles").hasAuthority("ADMIN");
-        //hasAuthority("ADMIN");
        // http.authorizeRequests().antMatchers(HttpMethod.POST,"/api/roleUser").permitAll();
         http.authorizeRequests().anyRequest().authenticated();
         http.csrf().disable();

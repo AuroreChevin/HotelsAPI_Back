@@ -1,22 +1,24 @@
 package fr.fms.hotels.web;
 
-import fr.fms.hotels.entities.City;
+
 import fr.fms.hotels.entities.Hotel;
 import fr.fms.hotels.exception.RecordNotFoundException;
 import fr.fms.hotels.service.HotelServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.io.IOException;
+import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
-import java.util.Optional;
+import java.util.Objects;
 
 @CrossOrigin("*")
 @RestController
@@ -89,13 +91,82 @@ public class HotelController {
     public Hotel getHotelById(@PathVariable("id")Long id) {
         return hotelServiceImpl.readHotelById(id).orElseThrow(() -> new RecordNotFoundException("Id de l'hôtel " +id+ " n'existe pas"));
     }
+
+    /**
+     *  Methode en GET permettant de récupérer une liste d'hôtels contenant un mot clé pour la ville
+     * @param keyword mot clé contenu dans nom de ville
+     * @return uneliste d'hôtels
+     */
     @GetMapping("/hotels/city/{keyword}")
     public List<Hotel> getHotelByCityByKeyword(@PathVariable String keyword) {
         try {
             return hotelServiceImpl.getHotelByCityKeyword(keyword);
         } catch (Exception e) {
-            log.error(e.getMessage(), e);
+            log.error("Aucun hotel ne correspond à une ville contenant ce mot clé : {}", keyword);
         }
         return null;
+    }
+
+    /**
+     * Méthode en POST permettant de sauvegarder un nouvel hôtel
+     * @param h un hôtel
+     * @return response entity creation hotel
+     */
+    @PostMapping("/hotels")
+    public ResponseEntity<Hotel> saveHotel(@RequestBody Hotel h){
+        Hotel hotel = hotelServiceImpl.saveHotel(h);
+        if(Objects.isNull(hotel)) {
+            return ResponseEntity.noContent().build();
+        }
+        URI location =  ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(hotel.getId())
+                .toUri();
+        return ResponseEntity.created(location).build();
+    }
+
+    /**
+     * Méthode DELETE permettant la suppression d'un hôtel
+     * @param id de l'hôtel
+     * @return response entity status ok
+     */
+    @DeleteMapping(value = "/hotels/{id}")
+    public ResponseEntity<?> deleteHotel(@PathVariable("id") Long id) {
+        try {
+            hotelServiceImpl.deleteHotel(id);
+        }
+        catch (Exception e) {
+            log.error("Problème durant la suppression de l'hôtel' d'id : {}",id);
+            return ResponseEntity.internalServerError().body(e.getCause());
+        }
+        log.info("Suppression de l'hôtel'd'id : {}", id);
+        return ResponseEntity.ok().build();
+    }
+
+    /**
+     * Méthode PUT permettant de mettre à jour un hotel
+     * @param h hotel
+     * @return response entity status ok
+     */
+    @PutMapping("/hotels")
+    public ResponseEntity<Hotel> updateHotel(@RequestBody Hotel h){
+        Hotel hotel = hotelServiceImpl.readHotelById(h.getId()).get();
+        hotel.setHotelName(h.getHotelName());
+        hotel.setAddress(h.getAddress());
+        hotel.setPhone(h.getPhone());
+        hotel.setNbRoom(h.getNbRoom());
+        hotel.setNbStar(h.getNbStar());
+        hotel.setPriceRoom(h.getPriceRoom());
+        hotel.setCity(hotelServiceImpl.readCityById(h.getCity().getId()).get());
+        if(Objects.isNull(hotelServiceImpl.saveHotel(hotel))) {
+            return ResponseEntity.noContent().build();
+        }
+        URI location =  ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(hotel.getId())
+                .toUri();
+        return ResponseEntity.created(location).build();
     }
 }
