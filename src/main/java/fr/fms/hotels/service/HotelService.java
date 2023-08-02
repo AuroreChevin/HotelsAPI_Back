@@ -67,4 +67,9 @@ public interface HotelService {
      * @param id de l'hôtel
      */
     void deleteHotel(Long id);
+    /**
+     * Méthode permettant la suppression d'une ville
+     * @param id de la ville
+     */
+    void deleteCity(Long id);
 }

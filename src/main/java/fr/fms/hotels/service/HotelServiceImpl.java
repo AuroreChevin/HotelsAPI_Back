@@ -66,5 +66,10 @@ public class HotelServiceImpl implements HotelService{
         hotelRepository.deleteById(id);
     }
 
+    @Override
+    public void deleteCity(Long id) {
+        cityRepository.deleteById(id);
+    }
+
 
 }

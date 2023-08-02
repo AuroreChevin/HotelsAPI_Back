@@ -32,7 +32,6 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException{
         User springUser = (User) authResult.getPrincipal();
-        System.out.println(springUser);
         String jwtToken = JWT.create()
                 .withSubject(springUser.getUsername())
                 .withExpiresAt(new Date(System.currentTimeMillis()+ SecurityConstants.EXPIRATION_TIME))

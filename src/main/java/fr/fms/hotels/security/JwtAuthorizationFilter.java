@@ -36,7 +36,7 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
                 "Access-Control-Allow-Origin, Access-Control-Allow-Credentials, Authorization");
 
         response.addHeader("Access-Control-Allow-Methods", "GET,POST,OPTIONS,DELETE,PUT");
-        System.out.println(token);
+       // System.out.println(token);
         if(token != null && token.startsWith(SecurityConstants.TOKEN_PREFIX)){
             try{
                 String jwtToken = token.substring(7);
