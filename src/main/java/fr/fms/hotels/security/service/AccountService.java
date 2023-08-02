@@ -5,6 +5,7 @@ import fr.fms.hotels.security.entities.AppRole;
 import fr.fms.hotels.security.entities.AppUser;
 import org.springframework.http.ResponseEntity;
 
+import java.util.Collection;
 import java.util.List;
 
 public interface AccountService {
@@ -27,11 +28,13 @@ public interface AccountService {
      void addRoleToUser(String username, String rolename);
 
     /**
-     * Méthode permettant d'ajouter un user par son nom
+     * Méthode permettant de trouver un user par son nom
      * @param username
      * @return un user
      */
     public AppUser findUserByUsername(String username);
 
     ResponseEntity<List<AppUser>> listUsers();
+    public List<AppUser> getUsersByRolename(String roles);
+
 }

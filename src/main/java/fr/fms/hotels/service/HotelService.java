@@ -54,4 +54,5 @@ public interface HotelService {
      * @return une ville
      */
     Optional<City> readCityById(Long id);
+    public  List<Hotel> getHotelByCityKeyword(String keyword);
 }

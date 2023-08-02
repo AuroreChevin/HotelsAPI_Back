@@ -89,5 +89,13 @@ public class HotelController {
     public Hotel getHotelById(@PathVariable("id")Long id) {
         return hotelServiceImpl.readHotelById(id).orElseThrow(() -> new RecordNotFoundException("Id de l'hôtel " +id+ " n'existe pas"));
     }
-
+    @GetMapping("/hotels/city/{keyword}")
+    public List<Hotel> getHotelByCityByKeyword(@PathVariable String keyword) {
+        try {
+            return hotelServiceImpl.getHotelByCityKeyword(keyword);
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+        }
+        return null;
+    }
 }

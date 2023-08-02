@@ -56,6 +56,11 @@ public class HotelServiceImpl implements HotelService{
         return cityRepository.findById(id);
     }
 
+    @Override
+    public List<Hotel> getHotelByCityKeyword(String keyword) {
+        return hotelRepository.findByCityCityNameContains(keyword);
+    }
+
 
 
 }

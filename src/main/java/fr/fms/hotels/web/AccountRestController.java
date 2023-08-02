@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.List;
 
 @CrossOrigin("*")
@@ -37,6 +38,10 @@ public class AccountRestController {
     @PostMapping("/roleUser")
     public void postRoleToUser(@RequestBody UserRoleForm userRoleForm) {
         accountService.addRoleToUser(userRoleForm.getUsername(),userRoleForm.getRolename());
+    }
+    @GetMapping("/users/{rolename}")
+    public List<AppUser> getUsersByRole(@PathVariable String rolename){
+        return accountService.getUsersByRolename(rolename);
     }
 }
 

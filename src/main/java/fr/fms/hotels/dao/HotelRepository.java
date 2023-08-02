@@ -18,5 +18,6 @@ public interface HotelRepository extends JpaRepository<Hotel, Long> {
      * @return renvoie la liste d'hôtels
      */
     List<Hotel> findByCityId(Long id);
+    List<Hotel> findByCityCityNameContains(String keyword);
 
 }

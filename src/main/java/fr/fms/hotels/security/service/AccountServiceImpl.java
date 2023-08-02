@@ -12,6 +12,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 @Service @Transactional
@@ -50,6 +52,11 @@ public class AccountServiceImpl implements AccountService{
     @Override
     public ResponseEntity<List<AppUser>> listUsers() {  //ResponseEntity permet d'ajouter au corps des entetes et un état
         return ResponseEntity.ok().body(appUserRepository.findAll());
+    }
+
+    @Override
+    public List<AppUser> getUsersByRolename(String roles) {
+        return appUserRepository.findByRolesRolename(roles);
     }
 
 }
