@@ -27,7 +27,13 @@ public class AccountRestController {
      * @return la liste des users
      */
     @GetMapping("/users")
-    ResponseEntity<List<AppUser>> getUsers(){  return this.accountService.listUsers(); }
+    ResponseEntity<List<AppUser>> getUsers(){
+        try {
+            return this.accountService.listUsers();
+        }catch (Exception e){
+            log.error("problème lors du chargement de la liste", e.getCause());
+        }
+        return null;}
 
     /**
      * Méthode en Post permettant de sauvegarder un nouvel utilisateur

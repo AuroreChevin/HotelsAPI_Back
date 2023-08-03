@@ -24,7 +24,14 @@ public class CityController {
      * @return la liste des villes
      */
     @GetMapping("/cities")
-    public List<City> allCities(){return hotelServiceImpl.getAllCities();}
+    public List<City> allCities(){
+        try {
+            return hotelServiceImpl.getAllCities();
+         }catch (Exception e){
+            log.error("problème lors du chargement de la liste", e.getCause());
+        }
+        return null;
+    }
     /**
      * méthode en GET permettant la recherche d'une ville par mot clé (chaine de caractère)
      * @param keyword la chaine de caractère à trouver

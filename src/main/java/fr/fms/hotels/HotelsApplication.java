@@ -17,10 +17,10 @@ import java.util.ArrayList;
 
 @SpringBootApplication
 public class HotelsApplication implements CommandLineRunner {
-	@Autowired
+	/*@Autowired
 	HotelServiceImpl hotelServiceImpl;
 	@Autowired
-	AccountServiceImpl accountService;
+	AccountServiceImpl accountService;*/
 	@Bean
 	public BCryptPasswordEncoder getBCryptPasswordEncoder(){
 		return new BCryptPasswordEncoder();
@@ -31,10 +31,10 @@ public class HotelsApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		generateDataHotel();
-		generateUsersRoles();
+		//generateDataHotel();
+		//generateUsersRoles();
 	}
-	private void generateDataHotel() {
+	/*private void generateDataHotel() {
 		City toulouse = hotelServiceImpl.saveCity(new City(null, "Toulouse", "Ville rose", null));
 		City nice = hotelServiceImpl.saveCity(new City(null, "Nice", "Ville au bord de la méditerranée", null));
 		City saintAmand = hotelServiceImpl.saveCity(new City(null, "Saint Amand Les Eaux", "Ville thermale", null));
@@ -85,5 +85,5 @@ public class HotelsApplication implements CommandLineRunner {
 		accountService.addRoleToUser("guigui","USER");
 		accountService.addRoleToUser("benoit","USER");
 		accountService.addRoleToUser("alex","USER");
-	}
+	}*/
 }

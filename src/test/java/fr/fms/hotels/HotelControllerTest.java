@@ -27,4 +27,5 @@ public class HotelControllerTest {
     public void testGetCities()throws Exception{
         mockMvc.perform(get("/cities")).andDo(print()).andExpect(status().isOk());
     }
+
 }

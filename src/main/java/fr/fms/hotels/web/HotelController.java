@@ -31,7 +31,14 @@ public class HotelController {
      * @return la liste des hotels
      */
     @GetMapping("/hotels")
-    public List<Hotel> allHotels(){return hotelServiceImpl.getAllHotels();}
+    public List<Hotel> allHotels(){
+        try {
+            return hotelServiceImpl.getAllHotels();
+        }catch (Exception e){
+            log.error("problème lors du chargement de la liste", e.getCause());
+        }
+        return null;
+    }
     /**
      * méthode en GET permettant de sélectionner une ville pour la recheche d'hôtels
      * @param id l'identifiant de la ville choisie
@@ -39,7 +46,12 @@ public class HotelController {
      */
     @GetMapping("/hotels/cities/{id}")
     public List<Hotel> allHotelsByCityId(@PathVariable("id")Long id){
+        try {
         return hotelServiceImpl.getHotelsByCityId(id);
+        }catch (Exception e){
+            log.error("problème lors du chargement de la liste", e.getCause());
+        }
+        return null;
     }
 
     /**
@@ -68,14 +80,15 @@ public class HotelController {
      * @return Response entity
      */
     @PostMapping(path="/photo/{id}")
-    public ResponseEntity<?> uploadPhoto(MultipartFile file, @PathVariable("id")Long id) throws IOException{
+    public ResponseEntity<?> uploadPhoto(MultipartFile file, @PathVariable Long id) throws Exception {
         try {
             Hotel hotel = hotelServiceImpl.readHotelById(id).get();
             hotel.setPhoto(file.getOriginalFilename());
-            Files.write(Paths.get(System.getProperty("user.home")+"/hotels/images/"+hotel.getPhoto()),file.getBytes());
+            Files.write(Paths.get(System.getProperty("user.home")+"/hotels/images/" + hotel.getPhoto()),file.getBytes());
             hotelServiceImpl.saveHotel(hotel);
-        }catch (Exception e){
-            log.error("problème lors de l'upload de l'image correspondant à l'hôtel d'id : {}", id);
+        }
+        catch(Exception e) {
+            log.error("pb avec upload de l'image correspondant à l'hôtel d'id : {}",id);
             return ResponseEntity.internalServerError().body(e.getCause());
         }
         log.info("file upload ok {}",id);
