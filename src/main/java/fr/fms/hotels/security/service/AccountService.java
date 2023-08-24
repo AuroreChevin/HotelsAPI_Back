@@ -44,4 +44,9 @@ public interface AccountService {
     void deleteUser(Long id);
 
     Optional<AppUser> readUserById(Long id);
+
+   // void addHotelToManager(String username, String hotelName);
+
+
+    ResponseEntity<List<AppRole>> listRoles();
 }

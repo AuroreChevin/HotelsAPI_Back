@@ -72,4 +72,8 @@ public interface HotelService {
      * @param id de la ville
      */
     void deleteCity(Long id);
+
+    void addUserToHotel(String hotelName, String username);
+
+    List<Hotel> getHotelsByUserId(Long id);
 }

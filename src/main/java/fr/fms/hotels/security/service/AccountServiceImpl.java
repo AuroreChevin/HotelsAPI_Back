@@ -1,6 +1,7 @@
 package fr.fms.hotels.security.service;
 
 import fr.fms.hotels.dao.HotelRepository;
+import fr.fms.hotels.entities.Hotel;
 import fr.fms.hotels.security.dao.AppRoleRepository;
 import fr.fms.hotels.security.dao.AppUserRepository;
 import fr.fms.hotels.security.entities.AppRole;
@@ -12,8 +13,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,9 +24,9 @@ public class AccountServiceImpl implements AccountService{
     @Autowired
     AppRoleRepository appRoleRepository;
     @Autowired
-    public BCryptPasswordEncoder bCryptPasswordEncoder;
-    @Autowired
     HotelRepository hotelRepository;
+    @Autowired
+    public BCryptPasswordEncoder bCryptPasswordEncoder;
     @Override
     public AppUser saveUser(AppUser user) {
         String hashPW = bCryptPasswordEncoder.encode(user.getPassword());
@@ -69,6 +68,19 @@ public class AccountServiceImpl implements AccountService{
     @Override
     public Optional<AppUser> readUserById(Long id) {
         return appUserRepository.findById(id);
+    }
+
+   /* @Override
+    public void addHotelToManager(String username, String hotelName) {
+        Hotel hotel = hotelRepository.findByHotelName(hotelName);
+        AppUser user = appUserRepository.findByUsername(username);
+        user.getHotels().add(hotel);
+        log.info("association d'un hôtel à un utilisateur");
+    }*/
+
+    @Override
+    public ResponseEntity<List<AppRole>> listRoles() {
+        return ResponseEntity.ok().body(appRoleRepository.findAll());
     }
 
 

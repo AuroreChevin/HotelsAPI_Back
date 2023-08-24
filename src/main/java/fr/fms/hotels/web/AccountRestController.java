@@ -1,7 +1,7 @@
 package fr.fms.hotels.web;
 
 
-import fr.fms.hotels.entities.City;
+import fr.fms.hotels.entities.Hotel;
 import fr.fms.hotels.security.entities.AppRole;
 import fr.fms.hotels.security.entities.AppUser;
 import fr.fms.hotels.security.service.AccountServiceImpl;
@@ -33,8 +33,17 @@ public class AccountRestController {
         }catch (Exception e){
             log.error("problème lors du chargement de la liste", e.getCause());
         }
-        return null;}
-
+        return null;
+    }
+    @GetMapping("/roles")
+    ResponseEntity<List<AppRole>> getRoles(){
+        try {
+            return this.accountService.listRoles();
+        }catch (Exception e){
+            log.error("problème lors du chargement de la liste", e.getCause());
+        }
+        return null;
+    }
     /**
      * Méthode en Post permettant de sauvegarder un nouvel utilisateur
      * @param u un objet User
@@ -102,6 +111,7 @@ public class AccountRestController {
                 .toUri();
         return ResponseEntity.created(location).build();
     }
+
 }
 
 @Data

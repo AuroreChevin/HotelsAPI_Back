@@ -23,5 +23,7 @@ public interface HotelRepository extends JpaRepository<Hotel, Long> {
      * @return liste d'hôtels dont le nom de la ville contient le keyword
      */
     List<Hotel> findByCityCityNameContains(String keyword);
+    Hotel findByHotelName(String hotelName);
+    List<Hotel> findByUsersId(Long id);
 
 }

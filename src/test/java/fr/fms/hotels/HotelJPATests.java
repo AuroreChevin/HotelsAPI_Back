@@ -27,8 +27,8 @@ public class HotelJPATests {
     }
     @Test
     void should_find_all_hotels() {
-        hotelRepository.save(new Hotel(null, "CatBed", "12 rue du fauteuil", "0623025155", 2, 5, 60,null, null));
-        Iterable<Hotel> cinemas = hotelRepository.findAll();
-        assertThat(cinemas).isNotEmpty();
+        hotelRepository.save(new Hotel(null, "CatBed", "12 rue du fauteuil", "0623025155", 2, 5, 60,null, null, null));
+        Iterable<Hotel> hotels = hotelRepository.findAll();
+        assertThat(hotels).isNotEmpty();
     }
 }

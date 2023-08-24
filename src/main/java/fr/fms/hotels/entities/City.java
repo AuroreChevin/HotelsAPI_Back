@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
 import javax.persistence.*;
 import java.util.Collection;
@@ -20,5 +22,6 @@ public class City {
     @OneToMany(fetch = FetchType.EAGER)
     @JsonIgnore
     @JoinColumn(name = "city_id")
+    @Cascade(CascadeType.DELETE)
     private Collection<Hotel> hotels;
 }

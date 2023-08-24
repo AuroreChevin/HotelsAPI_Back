@@ -7,6 +7,7 @@ import fr.fms.hotels.service.HotelServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -119,7 +120,11 @@ public class HotelController {
         }
         return null;
     }
-
+    @GetMapping("/hotels/user/{id}")
+    public ResponseEntity<List<Hotel>> getHotelsByUser(@PathVariable("id") Long id){
+        List<Hotel> hotels = hotelServiceImpl.getHotelsByUserId(id);
+        return new ResponseEntity<List<Hotel>>(hotels,HttpStatus.OK);
+    }
     /**
      * Méthode en POST permettant de sauvegarder un nouvel hôtel
      * @param h un hôtel

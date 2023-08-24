@@ -14,7 +14,7 @@ public interface CityRepository extends JpaRepository<City, Long> {
 
     /**
      * Méthode premettant de récupérer la liste des villes contenant un mot clé
-     * @param keyword
+     * @param keyword mot clé pour ville
      * @return liste de villes contenant keyword
      */
     List<City> findByCityNameContains(String keyword);

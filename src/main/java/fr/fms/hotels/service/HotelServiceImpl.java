@@ -4,6 +4,8 @@ import fr.fms.hotels.dao.CityRepository;
 import fr.fms.hotels.dao.HotelRepository;
 import fr.fms.hotels.entities.City;
 import fr.fms.hotels.entities.Hotel;
+import fr.fms.hotels.security.dao.AppUserRepository;
+import fr.fms.hotels.security.entities.AppUser;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +20,8 @@ public class HotelServiceImpl implements HotelService{
     CityRepository cityRepository;
     @Autowired
     HotelRepository hotelRepository;
+    @Autowired
+    AppUserRepository appUserRepository;
     @Override
     public City saveCity(City city) {
         log.info("Sauvegarde d'une nouvelle ville {} en base",city);
@@ -71,5 +75,19 @@ public class HotelServiceImpl implements HotelService{
         cityRepository.deleteById(id);
     }
 
+   @Override
+    public void addUserToHotel(String hotelName, String username) {
+        Hotel hotel = hotelRepository.findByHotelName(hotelName);
+        AppUser user = appUserRepository.findByUsername(username);
+        hotel.getUsers().add(user);
+        hotelRepository.save(hotel);
+        System.out.println("addUserToHotel: "+hotel);
+        log.info("association d'un hôtel à un utilisateur");
+    }
+
+    @Override
+    public List<Hotel> getHotelsByUserId(Long id) {
+        return hotelRepository.findByUsersId(id);
+    }
 
 }
